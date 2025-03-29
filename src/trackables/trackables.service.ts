@@ -4,7 +4,6 @@ import { UpdateTrackableDto } from './dto/update-trackable.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Trackable } from './entities/trackable.entity';
-import { resolve } from 'path';
 
 @Injectable()
 export class TrackablesService {
@@ -22,7 +21,11 @@ export class TrackablesService {
     return this.trackableRepository.save(trackable);
   }
 
-  findAll() {
+  findAll(characterId?: number) {
+    if (characterId) {
+      return this.trackableRepository.findBy({ characterId });
+    }
+
     return this.trackableRepository.find();
   }
 

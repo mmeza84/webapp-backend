@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { TrackablesService } from './trackables.service';
 import { CreateTrackableDto } from './dto/create-trackable.dto';
 import { UpdateTrackableDto } from './dto/update-trackable.dto';
@@ -13,8 +22,8 @@ export class TrackablesController {
   }
 
   @Get()
-  findAll() {
-    return this.trackablesService.findAll();
+  findAll(@Query('characterId') characterId: string) {
+    return this.trackablesService.findAll(+characterId);
   }
 
   @Get(':id')
@@ -23,7 +32,10 @@ export class TrackablesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTrackableDto: UpdateTrackableDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateTrackableDto: UpdateTrackableDto
+  ) {
     return this.trackablesService.update(+id, updateTrackableDto);
   }
 

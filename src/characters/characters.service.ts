@@ -23,7 +23,7 @@ export class CharactersService {
     return this.characterRepository.save(character);
   }
 
-  findAll(campaignId?: number): Promise<Character[]> {
+  findAll(campaignId?: number) {
     if (campaignId) {
       return this.characterRepository.findBy({ campaignId });
     }
